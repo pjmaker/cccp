@@ -16,13 +16,18 @@ from twisted.internet.task import LoopingCall
  
 # from control import * -- unused for now
 
+'''IP address for cluster controller'''
+ccip = '172.16.200.41'
+
 '''Maximum PV output for this cluster which must be set by hand'''
 PvMaxP = 50.0 # change this as appropriate
 
 '''Current PV output in kW'''
 PvP = 0
+
 '''Current PV active power setpoint in kW'''
 PvSetP = 0
+
 '''Current PV reactive power setpoint in kW'''
 PvSetQ = 0
 
@@ -54,7 +59,7 @@ def reader():
     
 
 # make the connection
-client = ModbusTcpClient('172.16.200.41', 502)
+client = ModbusTcpClient(ccip, 502)
 client.connect()
 
 # 
