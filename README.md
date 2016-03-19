@@ -5,3 +5,8 @@ This program is a test/demo tool for the SMA Cluster Controller (see www.sma.de)
 The Cluster Controller provides a interface to a group of SMA inverters and provides power setpoint controller.
 
 Note that this is merely a test program in order to demonstrate functionallity.
+
+INSTALLATION
+
+The program requires the pymodbus and twisted libraries to be installed along with
+python2. 
