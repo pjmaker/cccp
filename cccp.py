@@ -9,9 +9,8 @@ INSTALL: this program uses the twisted framework and pymodbus both of
    which can be installed by pip install.
 '''
 
-from pymodbus.constants import Defaults
 from pymodbus.client.sync import ModbusTcpClient
-from twisted.internet import reactor, protocol
+from twisted.internet import reactor
 from twisted.internet.task import LoopingCall
 
 # from control import * -- unused for now
