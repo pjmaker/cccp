@@ -15,7 +15,7 @@ from twisted.internet.task import LoopingCall
 
 # from control import * -- unused for now
 
-'''IP address for cluster controller'''
+# IP address for cluster controller
 ccip = '172.16.200.41'
 
 '''Maximum PV output for this cluster which must be set by hand'''
@@ -40,19 +40,19 @@ def writer():
     PvSetP = limit(PvSetP, 1, 100)
     PvSetQ = 0
 
-    PvSetPRaw = 10000.0*(PvSetP/PvMaxP)
-    PvSetQRaw = 10000.0*(PvSetQ/PvMaxP)
+    PvSetPRaw = 10000.0 * (PvSetP / PvMaxP)
+    PvSetQRaw = 10000.0 * (PvSetQ / PvMaxP)
 
-    rr = client.write_registers(40022,
-                                [PvSetQRaw,PvSetPRaw],
-                                unit=2)
+    client.write_registers(40022,
+                           [PvSetQRaw, PvSetPRaw],
+                           unit=2)
 
 def reader():
     '''read the current status'''
     global client
     global PvP, PvSetP
 
-    rr = client.read_input_registers(30775,2,unit=1)
+    rr = client.read_input_registers(30775, 2, unit=1)
     print "PvP= ", ((rr.registers[0]<<16) | rr.registers[1])/1000.0,
     print " ~ ", PvSetP
 
