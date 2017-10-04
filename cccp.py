@@ -32,9 +32,6 @@ PvSetQ = 0
 
 def writer():
     '''write the setpoints'''
-    global client
-    global PvSetP, PvSetQ, PvP, PvQ, PvMaxP
-
     # vary the setpoints
     PvSetP = (PvSetP + 10) % PvMaxP
     PvSetP = limit(PvSetP, 1, 100)
@@ -49,9 +46,6 @@ def writer():
 
 def reader():
     '''read the current status'''
-    global client
-    global PvP, PvSetP
-
     rr = client.read_input_registers(30775, 2, unit=1)
     print "PvP= ", ((rr.registers[0]<<16) | rr.registers[1])/1000.0,
     print " ~ ", PvSetP
