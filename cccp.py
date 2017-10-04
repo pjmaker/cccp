@@ -32,6 +32,8 @@ PvSetQ = 0
 
 def writer():
     '''write the setpoints'''
+    global PvSetP, PvSetQ
+
     # vary the setpoints
     PvSetP = (PvSetP + 10) % PvMaxP
     PvSetP = limit(PvSetP, 1, 100)
