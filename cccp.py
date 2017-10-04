@@ -3,7 +3,7 @@
 cccp.py - a simple test harness for the SMA Cluster Controller, whence
     cccp (cluster controller controller program). The SMA Cluster Controller
     provides a MODBUS-TCP interface which controls and monitors a group
-    of SMA inverters. 
+    of SMA inverters.
 
 INSTALL: this program uses the twisted framework and pymodbus both of
    which can be installed by pip install.
@@ -13,7 +13,7 @@ from pymodbus.constants import Defaults
 from pymodbus.client.sync import ModbusTcpClient
 from twisted.internet import reactor, protocol
 from twisted.internet.task import LoopingCall
- 
+
 # from control import * -- unused for now
 
 '''IP address for cluster controller'''
@@ -39,7 +39,7 @@ def writer():
     # vary the setpoints
     PvSetP = (PvSetP + 10) % PvMaxP
     PvSetP = limit(PvSetP, 1, 100)
-    PvSetQ = 0 
+    PvSetQ = 0
 
     PvSetPRaw = 10000.0*(PvSetP/PvMaxP)
     PvSetQRaw = 10000.0*(PvSetQ/PvMaxP)
@@ -56,16 +56,14 @@ def reader():
     rr = client.read_input_registers(30775,2,unit=1)
     print "PvP= ", ((rr.registers[0]<<16) | rr.registers[1])/1000.0,
     print " ~ ", PvSetP
-    
 
 # make the connection
 client = ModbusTcpClient(ccip, 502)
 client.connect()
 
-# 
 loopwriter = LoopingCall(f=writer)
 loopreader = LoopingCall(f=reader)
-loopwriter.start(10, now=False) 
+loopwriter.start(10, now=False)
 loopreader.start(1, now=False)
 
 reactor.run()
